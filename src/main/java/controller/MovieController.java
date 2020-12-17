@@ -7,46 +7,54 @@ import view.OutputView;
 import java.util.List;
 
 public class MovieController {
-
-    public static final int RESTART_FLAG = 2;
+    private static final int RESTART_FLAG = 2;
+    private static final int DONE_FLAG = 1;
 
     public void run() {
         List<Movie> movies = MovieRepository.getMovies();
         do {
             OutputView.printMovies(movies);
             makeTicket();
-        }while (receiveRestart());
+        } while (receiveMoreTicket());
         OutputView.printTickets(TicketInformationRepository.getTickets());
         makeResult();
     }
 
-    private long receivePoint() {
-        long point = InputView.inputPoint();
-        if(point<0){
-            throw new IllegalArgumentException("없으면 0을 입력해주세요.");
+    private void makeTicket() {
+        try {
+            Movie movie = receiveMovie();
+            int scheduleId = receiveSchedule(movie);
+            MovieInformation movieInformation = new MovieInformation(movie, movie.getSchedule(scheduleId));
+            checkOneHour(movieInformation);
+            int people = receivePeople(movie, scheduleId);
+            TicketInformationRepository.addPeople(people, movieInformation);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            makeTicket();
         }
-        return point;
     }
 
-    private void makeTicket() {
-        Movie movie = receiveMovie();
-
-        int scheduleId = receiveSchedule(movie);
-        MovieInformation movieInformation = new MovieInformation(movie, movie.getSchedule(scheduleId));
-        for(MovieInformation enrolledMovie: TicketInformationRepository.getTickets().keySet()){
-            if(!enrolledMovie.isValidMovie(movieInformation)){
+    private void checkOneHour(MovieInformation movieInformation) {
+        for (MovieInformation enrolledMovie : TicketInformationRepository.getTickets().keySet()) {
+            if (!enrolledMovie.isValidMovie(movieInformation)) {
                 throw new IllegalArgumentException("1시간 이상 차이 납니다.");
             }
         }
-        int people = receivePeople(movie, scheduleId);
-        TicketInformationRepository.addPeople(people, movieInformation);
     }
 
     private Movie receiveMovie() {
-        int movieId = InputView.inputMovieId();
-        Movie movie = MovieRepository.findById(movieId);
+        Movie movie = MovieRepository.findById(receiveNotNumber());
         OutputView.printMovie(movie);
         return movie;
+    }
+
+    private int receiveNotNumber() {
+        try {
+            return Integer.parseInt(InputView.inputMovieId());
+        } catch (NumberFormatException e) {
+            System.out.println("숫자를 입력해주세요");
+            return receiveNotNumber();
+        }
     }
 
     private int receiveSchedule(Movie movie) {
@@ -63,14 +71,37 @@ public class MovieController {
         return people;
     }
 
-    private boolean receiveRestart() {
-        int restartFlag = InputView.inputRestart();
-        return restartFlag == RESTART_FLAG;
+    private boolean receiveMoreTicket() {
+        try {
+            int restartFlag = InputView.inputRestart();
+            if (restartFlag == RESTART_FLAG) {
+                return true;
+            }
+            if (restartFlag == DONE_FLAG) {
+                return false;
+            }
+            throw new IllegalArgumentException("1과 2 중 하나를 입력해주세요.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return receiveMoreTicket();
+        }
+    }
+
+    private long receivePoint() {
+        try {
+            long point = InputView.inputPoint();
+            if (point < 0) {
+                throw new IllegalArgumentException("없으면 0을 입력해주세요.");
+            }
+            return point;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return receivePoint();
+        }
     }
 
     private void makeResult() {
-        long point = receivePoint();
-        long total = TicketInformationRepository.calculatePrice(point);
+        long total = TicketInformationRepository.calculatePrice(receivePoint());
 
         OutputView.printResult(Pay.calculateResult(InputView.inputPay(), total));
     }

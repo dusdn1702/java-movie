@@ -1,17 +1,15 @@
 package domain;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class TicketInformationRepository {
-    private static Map<MovieInformation, Integer> tickets = new HashMap<>();
+    private static final Map<MovieInformation, Integer> tickets = new HashMap<>();
 
     public static void addPeople(int people, MovieInformation enrollFlag) {
 
-        if(tickets.containsKey(enrollFlag)){
-            people+=tickets.get(enrollFlag);
+        if (tickets.containsKey(enrollFlag)) {
+            people += tickets.get(enrollFlag);
             tickets.remove(enrollFlag);
         }
         tickets.put(enrollFlag, people);
@@ -23,9 +21,9 @@ public class TicketInformationRepository {
 
     public static long calculatePrice(long point) {
         long price = 0;
-        for(MovieInformation movieInformation: tickets.keySet()){
+        for (MovieInformation movieInformation : tickets.keySet()) {
             price += movieInformation.makePriceWithPeople(tickets.get(movieInformation));
         }
-        return price-point;
+        return price - point;
     }
 }

@@ -1,8 +1,8 @@
 package domain;
 
 public class MovieInformation {
-    private Movie movie;
-    private PlaySchedule playSchedule;
+    private final Movie movie;
+    private final PlaySchedule playSchedule;
 
     public MovieInformation(Movie movie, PlaySchedule playSchedule) {
         this.movie = movie;
