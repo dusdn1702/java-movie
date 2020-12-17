@@ -1,9 +1,5 @@
 package domain;
 
-import utils.DateTimeUtils;
-
-import java.util.Map;
-
 public class MovieInformation {
     private Movie movie;
     private PlaySchedule playSchedule;
@@ -19,7 +15,7 @@ public class MovieInformation {
 
     @Override
     public String toString() {
-        return movie.toTicketString() +playSchedule.toTicketString();
+        return movie.toTicketString() + playSchedule.toTicketString();
     }
 
     public long makePriceWithPeople(Integer people) {

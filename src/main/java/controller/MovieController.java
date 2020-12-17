@@ -5,7 +5,6 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
-import java.util.Map;
 
 public class MovieController {
 
@@ -18,9 +17,7 @@ public class MovieController {
             makeTicket();
         }while (receiveRestart());
         OutputView.printTickets(TicketInformationRepository.getTickets());
-        long point = receivePoint();
-        long total = TicketInformationRepository.calculatePrice(point);
-        System.out.println(total);
+        makeResult();
     }
 
     private long receivePoint() {
@@ -69,5 +66,12 @@ public class MovieController {
     private boolean receiveRestart() {
         int restartFlag = InputView.inputRestart();
         return restartFlag == RESTART_FLAG;
+    }
+
+    private void makeResult() {
+        long point = receivePoint();
+        long total = TicketInformationRepository.calculatePrice(point);
+
+        OutputView.printResult(Pay.calculateResult(InputView.inputPay(), total));
     }
 }
