@@ -20,8 +20,8 @@ public class PlaySchedule {
     }
 
     public boolean isImpossibleCapacity(int wantedPeople) {
-        if(capacity-wantedPeople>0){
-            capacity-=wantedPeople;
+        if (capacity - wantedPeople >= 0) {
+            capacity -= wantedPeople;
             return false;
         }
         return true;
