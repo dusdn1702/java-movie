@@ -27,6 +27,7 @@ public class MovieController {
     private int receiveSchedule(Movie movie) {
         int scheduleId = InputView.inputScheduleId();
         movie.checkPastTime(scheduleId);
+        movie.checkPossibleCapacity(scheduleId);
         return scheduleId;
     }
 }

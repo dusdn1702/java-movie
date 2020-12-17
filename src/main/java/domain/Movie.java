@@ -46,4 +46,10 @@ public class Movie {
             throw new IllegalArgumentException("이미 지난 시간표입니다.");
         }
     }
+
+    public void checkPossibleCapacity(int index){
+        if(playSchedules.get(index).isCapacityZero()){
+            throw new IllegalArgumentException("이미 꽉 찬 시간입니다.");
+        }
+    }
 }

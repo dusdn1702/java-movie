@@ -19,8 +19,16 @@ public class PlaySchedule {
         return startDateTime.isBefore(LocalDateTime.now());
     }
 
+    public boolean isImpossibleCapacity(int input){
+        return capacity-input<0;
+    }
+
     @Override
     public String toString() {
         return "시작시간: " + format(startDateTime) + " 예약가능인원: " + capacity + "\n";
+    }
+
+    public boolean isCapacityZero() {
+        return capacity==0;
     }
 }
