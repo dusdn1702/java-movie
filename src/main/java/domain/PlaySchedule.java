@@ -15,12 +15,16 @@ public class PlaySchedule {
         this.capacity = capacity;
     }
 
-    public boolean isPastTime(){
+    public boolean isPastTime() {
         return startDateTime.isBefore(LocalDateTime.now());
     }
 
-    public boolean isImpossibleCapacity(int wantedPeople){
-        return capacity-wantedPeople<0;
+    public boolean isImpossibleCapacity(int wantedPeople) {
+        if(capacity-wantedPeople>0){
+            capacity-=wantedPeople;
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -29,6 +33,6 @@ public class PlaySchedule {
     }
 
     public boolean isCapacityZero() {
-        return capacity==0;
+        return capacity == 0;
     }
 }

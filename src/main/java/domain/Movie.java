@@ -49,7 +49,7 @@ public class Movie {
     }
 
     public void checkMoreThanZero(int index){
-        if(playSchedules.get(index).isCapacityZero()){
+        if(playSchedules.get(index-INDEX_FORMATTER).isCapacityZero()){
             throw new IllegalArgumentException("이미 꽉 찬 시간입니다.");
         }
     }
@@ -60,8 +60,8 @@ public class Movie {
         }
     }
 
-    public void checkMoreThanZero(int scheduleId, int people) {
-        if(playSchedules.get(scheduleId).isImpossibleCapacity(people)){
+    public void checkPossiblePeople(int scheduleId, int people) {
+        if(playSchedules.get(scheduleId-INDEX_FORMATTER).isImpossibleCapacity(people)){
             throw new IllegalArgumentException("모든 인원이 영화를 볼 수 없습니다.");
         }
     }
