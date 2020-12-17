@@ -31,4 +31,8 @@ public class Movie {
         return id + " - " + name + ", " + price + "원" + NEW_LINE
                 + sb.toString();
     }
+
+    public boolean isEqualId(int comparedId) {
+        return id==comparedId;
+    }
 }
