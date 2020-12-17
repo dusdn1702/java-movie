@@ -15,6 +15,8 @@ public class MovieController {
         Movie movie = receiveMovie();
 
         int scheduleId = receiveSchedule(movie);
+
+        int countOfPeople = receivePeople(movie, scheduleId);
     }
 
     private Movie receiveMovie() {
@@ -27,7 +29,14 @@ public class MovieController {
     private int receiveSchedule(Movie movie) {
         int scheduleId = InputView.inputScheduleId();
         movie.checkPastTime(scheduleId);
-        movie.checkPossibleCapacity(scheduleId);
+        movie.checkMoreThanZero(scheduleId);
         return scheduleId;
+    }
+
+    private int receivePeople(Movie movie, int scheduleId) {
+        int people = InputView.inputPeople();
+        movie.checkPositive(people);
+        movie.checkMoreThanZero(scheduleId, people);
+        return people;
     }
 }

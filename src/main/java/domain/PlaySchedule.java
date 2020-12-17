@@ -19,8 +19,8 @@ public class PlaySchedule {
         return startDateTime.isBefore(LocalDateTime.now());
     }
 
-    public boolean isImpossibleCapacity(int input){
-        return capacity-input<0;
+    public boolean isImpossibleCapacity(int wantedPeople){
+        return capacity-wantedPeople<0;
     }
 
     @Override

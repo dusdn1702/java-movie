@@ -7,6 +7,7 @@ public class Movie {
     private static final char NEW_LINE = '\n';
     public static final int INDEX_FORMATTER = 1;
     public static final int MINIMUM_INDEX = 1;
+    public static final int IMPOSSIBLE_CAPACITY = 0;
 
     private final int id;
     private final String name;
@@ -47,9 +48,21 @@ public class Movie {
         }
     }
 
-    public void checkPossibleCapacity(int index){
+    public void checkMoreThanZero(int index){
         if(playSchedules.get(index).isCapacityZero()){
             throw new IllegalArgumentException("이미 꽉 찬 시간입니다.");
+        }
+    }
+
+    public void checkPositive(int capacity) {
+        if(capacity< IMPOSSIBLE_CAPACITY){
+            throw new IllegalArgumentException("옳지 않은 인원수입니다.");
+        }
+    }
+
+    public void checkMoreThanZero(int scheduleId, int people) {
+        if(playSchedules.get(scheduleId).isImpossibleCapacity(people)){
+            throw new IllegalArgumentException("모든 인원이 영화를 볼 수 없습니다.");
         }
     }
 }
