@@ -23,6 +23,9 @@ public class MovieController {
 
     private long receivePoint() {
         long point = InputView.inputPoint();
+        if(point<0){
+            throw new IllegalArgumentException("없으면 0을 입력해주세요.");
+        }
         return point;
     }
 
@@ -36,7 +39,6 @@ public class MovieController {
                 throw new IllegalArgumentException("1시간 이상 차이 납니다.");
             }
         }
-
         int people = receivePeople(movie, scheduleId);
         TicketInformationRepository.addPeople(people, movieInformation);
     }
