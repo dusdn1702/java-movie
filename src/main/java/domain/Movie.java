@@ -35,6 +35,10 @@ public class Movie {
                 + sb.toString();
     }
 
+    public String toTicketString(){
+        return id + " - " + name + ", " + price + "원" +NEW_LINE;
+    }
+
     public boolean isEqualId(int comparedId) {
         return id==comparedId;
     }
@@ -64,5 +68,9 @@ public class Movie {
         if(playSchedules.get(scheduleId-INDEX_FORMATTER).isImpossibleCapacity(people)){
             throw new IllegalArgumentException("모든 인원이 영화를 볼 수 없습니다.");
         }
+    }
+
+    public PlaySchedule getSchedule(int scheduleId) {
+        return playSchedules.get(scheduleId-INDEX_FORMATTER);
     }
 }

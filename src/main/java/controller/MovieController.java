@@ -1,12 +1,11 @@
 package controller;
 
-import domain.Movie;
-import domain.MovieRepository;
-import domain.TicketRepository;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.Map;
 
 public class MovieController {
 
@@ -18,14 +17,28 @@ public class MovieController {
             OutputView.printMovies(movies);
             makeTicket();
         }while (receiveRestart());
+        OutputView.printTickets(TicketInformationRepository.getTickets());
+        long point = receivePoint();
+    }
+
+    private long receivePoint() {
+        long point = InputView.inputPoint();
+        return point;
     }
 
     private void makeTicket() {
         Movie movie = receiveMovie();
 
         int scheduleId = receiveSchedule(movie);
+        MovieInformation movieInformation = new MovieInformation(movie, movie.getSchedule(scheduleId));
+        for(MovieInformation enrolledMovie: TicketInformationRepository.getTickets().keySet()){
+            if(!enrolledMovie.isValidMovie(movieInformation)){
+                throw new IllegalArgumentException("1시간 이상 차이 납니다.");
+            }
+        }
+
         int people = receivePeople(movie, scheduleId);
-        TicketRepository.addTicket(movie, people);
+        TicketInformationRepository.addPeople(people, movieInformation);
     }
 
     private Movie receiveMovie() {

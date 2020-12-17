@@ -32,7 +32,14 @@ public class PlaySchedule {
         return "시작시간: " + format(startDateTime) + " 예약가능인원: " + capacity + "\n";
     }
 
+    public String toTicketString(){
+        return "시작시간: " + format(startDateTime) + "\n";
+    }
     public boolean isCapacityZero() {
         return capacity == 0;
+    }
+
+    public boolean isInOneHour(PlaySchedule playSchedule, PlaySchedule playSchedule1) {
+        return DateTimeUtils.isOneHourWithinRange(playSchedule1.startDateTime, playSchedule.startDateTime);
     }
 }
