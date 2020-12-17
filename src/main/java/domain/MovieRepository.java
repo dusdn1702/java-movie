@@ -10,9 +10,9 @@ public class MovieRepository {
 
     static {
         Movie movie1 = new Movie(1, "생일", 8_000);
-        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2021-04-16 12:00"), 6));
-        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2021-04-16 14:40"), 6));
-        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2021-04-16 17:00"), 6));
+        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2020-04-16 12:00"), 6));
+        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2020-04-16 14:40"), 6));
+        movie1.addPlaySchedule(new PlaySchedule(createDateTime("2020-04-16 17:00"), 6));
         movie1.addPlaySchedule(new PlaySchedule(createDateTime("2021-04-16 19:40"), 3));
         movie1.addPlaySchedule(new PlaySchedule(createDateTime("2021-04-16 22:00"), 3));
         movies.add(movie1);
@@ -51,4 +51,5 @@ public class MovieRepository {
         }
         throw new IllegalArgumentException("옳지 않은 입력입니다.");
     }
+
 }

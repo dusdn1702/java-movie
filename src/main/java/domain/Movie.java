@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Movie {
     private static final char NEW_LINE = '\n';
+    public static final int INDEX_FORMATTER = 1;
 
     private final int id;
     private final String name;
@@ -34,5 +35,11 @@ public class Movie {
 
     public boolean isEqualId(int comparedId) {
         return id==comparedId;
+    }
+
+    public void checkPastTime(int index){
+        if(playSchedules.get(index- INDEX_FORMATTER).isPastTime()){
+            throw new IllegalArgumentException("이미 지난 시간표입니다.");
+        }
     }
 }
