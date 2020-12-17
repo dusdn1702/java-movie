@@ -21,4 +21,8 @@ public class MovieInformation {
     public String toString() {
         return movie.toTicketString() +playSchedule.toTicketString();
     }
+
+    public long makePriceWithPeople(Integer people) {
+        return movie.calculatePriceWithPeople(people);
+    }
 }

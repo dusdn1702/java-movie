@@ -73,4 +73,8 @@ public class Movie {
     public PlaySchedule getSchedule(int scheduleId) {
         return playSchedules.get(scheduleId-INDEX_FORMATTER);
     }
+
+    public long calculatePriceWithPeople(Integer people) {
+        return price*people;
+    }
 }

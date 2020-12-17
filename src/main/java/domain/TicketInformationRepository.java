@@ -20,4 +20,12 @@ public class TicketInformationRepository {
     public static Map<MovieInformation, Integer> getTickets() {
         return tickets;
     }
+
+    public static long calculatePrice(long point) {
+        long price = 0;
+        for(MovieInformation movieInformation: tickets.keySet()){
+            price += movieInformation.makePriceWithPeople(tickets.get(movieInformation));
+        }
+        return price-point;
+    }
 }

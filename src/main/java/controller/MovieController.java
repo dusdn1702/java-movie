@@ -19,6 +19,8 @@ public class MovieController {
         }while (receiveRestart());
         OutputView.printTickets(TicketInformationRepository.getTickets());
         long point = receivePoint();
+        long total = TicketInformationRepository.calculatePrice(point);
+        System.out.println(total);
     }
 
     private long receivePoint() {
