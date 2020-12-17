@@ -6,6 +6,7 @@ import java.util.List;
 public class Movie {
     private static final char NEW_LINE = '\n';
     public static final int INDEX_FORMATTER = 1;
+    public static final int MINIMUM_INDEX = 1;
 
     private final int id;
     private final String name;
@@ -38,6 +39,9 @@ public class Movie {
     }
 
     public void checkPastTime(int index){
+        if(index< MINIMUM_INDEX || index>playSchedules.size()){
+            throw new IllegalArgumentException("옳지 않은 입력입니다.");
+        }
         if(playSchedules.get(index- INDEX_FORMATTER).isPastTime()){
             throw new IllegalArgumentException("이미 지난 시간표입니다.");
         }
